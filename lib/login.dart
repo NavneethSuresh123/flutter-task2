@@ -10,15 +10,15 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _emailController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
   Future<void> _login() async {
-    String email = _emailController.text;
+    String username = _usernameController.text;
     String password = _passwordController.text;
 
     try {
-      final response = await ApiService.login(context, email, password);
+      final response = await ApiService.login(context, username, password);
       String token = response['token'];
       await AuthService.saveAuthToken(token);
       AuthService.navigateToHomePage(context);
@@ -59,26 +59,76 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                TextFormField(
-                  controller: _emailController,
-                  decoration: const InputDecoration(hintText: 'Email'),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(20.0),
+                    border: Border.all(color: Colors.white.withOpacity(0.5),
+                        width: 2.0),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: TextFormField(
+                    controller: _usernameController,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: const InputDecoration(
+                      hintText: 'Username',
+                      hintStyle: TextStyle(color: Colors.white70),
+                      border: InputBorder.none,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 10),
-                TextFormField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(hintText: 'Password'),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(20.0),
+                    border: Border.all(color: Colors.white.withOpacity(0.5),
+                        width: 2.0),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: TextFormField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: const InputDecoration(
+                      hintText: 'Password',
+                      hintStyle: TextStyle(color: Colors.white70),
+                      border: InputBorder.none,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: _login,
-                  child: const Text('Login'),
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                        20.0),
+                  ),
+                  child: ElevatedButton(
+                    onPressed: _login,
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 15.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            20.0),
+                      ),
+                    ),
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
+
                 const SizedBox(height: 10),
+
                 TextButton(
-                  onPressed: () {
-                  },
-                  child: const Text("Don't have an account? Create One",
+                  onPressed: () {},
+                  child: const Text(
+                    "Don't have an account? Create One",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  static Future<Map<String, dynamic>> login(BuildContext context, String email, String password) async {
+  static Future<Map<String, dynamic>> login(BuildContext context, String username, String password) async {
     final url = Uri.parse('https://musicapp.jissanto.com/api/login');
     final body = jsonEncode({
-      'email': email,
+      'username': username,
       'password': password,
     });
 
